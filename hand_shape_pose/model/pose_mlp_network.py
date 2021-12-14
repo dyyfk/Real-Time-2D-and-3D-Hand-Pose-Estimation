@@ -95,7 +95,8 @@ class MLPPoseNetwork(nn.Module):
         
 #         print(images)
         image = images[0]
-        plt.imshow(image.permute(1, 2, 0), cmap=plt.get_cmap('gray'))
+        plt.imshow(image.to("cpu").numpy().permute(1, 2, 0), cmap=plt.get_cmap('gray'))
+
 #         image = image_paths[random.randint(0, 1000)]
 #         original_image = mpimg.imread(image)
 #         translated_image = pan(original_image)
