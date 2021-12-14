@@ -82,6 +82,24 @@ class MLPPoseNetwork(nn.Module):
             root_depth = pose_root[:, -1]
         images = BHWC_to_BCHW(images)  # B x C x H x W
         images = normalize_image(images)
+        #### MODIFICATION #### 
+        
+        print(images)
+#         image = image_paths[random.randint(0, 1000)]
+#         original_image = mpimg.imread(image)
+#         translated_image = pan(original_image)
+
+#         fig, axes =plt.subplots(1,2,figsize=(12,10))
+#         fig.tight_layout()
+
+#         axes[0].imshow(original_image)
+#         axes[0].set_title('Original image')
+#         axes[1].imshow(translated_image)
+#         axes[1].set_title('Translated image')
+        
+        
+        #### END OF MODIFICATION ####
+        
 
         # 1. Heat-map estimation
         est_hm_list, encoding = self.net_hm(images)
