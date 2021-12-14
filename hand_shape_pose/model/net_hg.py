@@ -87,7 +87,7 @@ class Net_HM_HG(nn.Module):
 
         _hourglass, _Residual, _lin_, _tmpOut, _ll_, _tmpOut_, _reg_ = [], [], [], [], [], [], []
         for i in range(self.nStack):
-            _hourglass.append(Hourglass(4, self.nModules, self.nFeats))
+            _hourglass.append(Hourglass(6, self.nModules, self.nFeats))
             for j in range(self.nModules):
                 _Residual.append(Residual(self.nFeats, self.nFeats))
             lin = nn.Sequential(nn.Conv2d(self.nFeats, self.nFeats, bias=True, kernel_size=1, stride=1),
