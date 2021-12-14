@@ -16,6 +16,15 @@ from hand_shape_pose.util.graph_util import build_hand_graph
 from hand_shape_pose.util.image_util import BHWC_to_BCHW, normalize_image, uvd2xyz, uvd2xyz_freihand_train, uvd2xyz_freihand_test
 from hand_shape_pose.util.heatmap_util import compute_uv_from_heatmaps
 
+
+
+
+
+
+import matplotlib.pyplot as plt
+
+
+
 class MLPPoseNetwork(nn.Module):
     """
     Main class for 3D hand shape and pose inference network.
@@ -84,7 +93,9 @@ class MLPPoseNetwork(nn.Module):
         images = normalize_image(images)
         #### MODIFICATION #### 
         
-        print(images)
+#         print(images)
+
+        plt.imshow(images, cmap=plt.get_cmap('gray'))
 #         image = image_paths[random.randint(0, 1000)]
 #         original_image = mpimg.imread(image)
 #         translated_image = pan(original_image)
