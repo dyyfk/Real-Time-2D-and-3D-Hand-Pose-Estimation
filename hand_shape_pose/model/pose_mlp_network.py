@@ -163,7 +163,7 @@ class MLPPoseNetwork(nn.Module):
             
         images = BHWC_to_BCHW(images)  # B x C x H x W
         images = normalize_image(images)
-        show(images)
+        show(images[0])
         #### MODIFICATION #### 
         
 #         print(images)
