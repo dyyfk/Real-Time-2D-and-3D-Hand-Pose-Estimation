@@ -82,13 +82,13 @@ def show(*imgs):
             img = img.numpy()  # convert to numpy
             img = img.squeeze()
             if bz ==1:
-                plt.imshow(img, cmap='gray')
+                plt.imshow(img.astype('uint8'), cmap='gray')
                 # plt.colorbar()
                 # plt.show()
             else:
                 for idx in range(0,bz):
                     plt.subplot(int(bz**0.5),int(np.ceil(bz/int(bz**0.5))),int(idx+1))
-                    plt.imshow(img[idx], cmap='gray')
+                    plt.imshow(img[idx].astype('uint8'), cmap='gray')
 
         else:
             raise Exception("unsupported type:  "+str(type(img)))
