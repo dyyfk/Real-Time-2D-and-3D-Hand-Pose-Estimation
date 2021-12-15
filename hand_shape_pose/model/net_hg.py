@@ -229,6 +229,20 @@ class Net_HM_HG(nn.Module):
 
     def __init__(self, nFeat=256, inplanes=3, resBlock=Residual, num_joints=21, num_stages=2, num_modules=2, num_feats=256):
         super(Net_HM_HG, self).__init__()
+        
+        ### Original NET_HM_HG structure ### 
+        self.numOutput = num_joints
+        self.nStack = num_stages
+
+        self.nModules = num_modules
+        self.nFeats = num_feats
+        
+        
+        
+        ## End of Original NET_HM_HG structure ###    
+        
+        
+        
         self.nFeat = nFeat
         self.resBlock = resBlock
         self.inplanes = inplanes
