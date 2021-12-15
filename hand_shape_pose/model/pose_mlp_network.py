@@ -161,9 +161,9 @@ class MLPPoseNetwork(nn.Module):
         if pose_root is not None:
             root_depth = pose_root[:, -1]
             
-        show(images[0])
         images = BHWC_to_BCHW(images)  # B x C x H x W
         images = normalize_image(images)
+        show(images[0])
         #### MODIFICATION #### 
         
 #         print(images)
