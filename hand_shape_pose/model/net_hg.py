@@ -140,11 +140,9 @@ from __future__ import unicode_literals
     
 ##################################### MODIFICATION ###############################    
     
+       
     
-    
-    
-    
-    """
+"""
 Used by 3-stage and 4-stage Identity Mapping Hourglass Network.
 """
 
