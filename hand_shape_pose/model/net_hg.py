@@ -223,26 +223,9 @@ class Conv(nn.Module):
         return x
 
 
-class Net_HM_HG(nn.Module):
-    
-    #     def __init__(self, num_joints, num_stages=2, num_modules=2, num_feats=256): original Net_HM_HG signature
-
-    def __init__(self, nFeat=256, inplanes=3, resBlock=Residual, num_joints=21, num_stages=2, num_modules=2, num_feats=256):
-        super(Net_HM_HG, self).__init__()
-        
-        ### Original NET_HM_HG structure ### 
-        self.numOutput = num_joints
-        self.nStack = num_stages
-
-        self.nModules = num_modules
-        self.nFeats = num_feats
-        
-        
-        
-        ## End of Original NET_HM_HG structure ###    
-        
-        
-        
+class Backbone(nn.Module):    
+    def __init__(self, nFeat=256, inplanes=3, resBlock=Residual):
+        super(Backbone, self).__init__()        
         self.nFeat = nFeat
         self.resBlock = resBlock
         self.inplanes = inplanes
@@ -268,10 +251,11 @@ class Net_HM_HG(nn.Module):
         return x
 
 
-class Hourglass(nn.Module):
+class Net_HM_HG(nn.Module):
     """Instantiate an n order Hourglass Network block using recursive trick."""
+    
     def __init__(self, depth, nFeat, increase=128, bn=False, resBlock=Conv):
-        super(Hourglass, self).__init__()
+        super(Net_HM_HG, self).__init__()
         self.depth = depth  # oder number
         self.nFeat = nFeat  # input and output channels
         self.increase = increase  # increased channels while the depth grows
