@@ -164,9 +164,9 @@ class MLPPoseNetwork(nn.Module):
             
         images = BHWC_to_BCHW(images)  # B x C x H x W
         images = normalize_image(images)
-        show(images[0])
-        #### MODIFICATION #### 
         
+        #### MODIFICATION #### 
+#         show(images[0])  
 #         print(images)
 #         image = images[0]
 #         plt.imshow(image.permute(1, 2, 0).detach().to("cpu").numpy())
