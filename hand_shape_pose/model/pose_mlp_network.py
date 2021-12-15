@@ -95,7 +95,7 @@ class MLPPoseNetwork(nn.Module):
         
 #         print(images)
         image = images[0]
-        plt.imshow(image.detach().to("cpu").numpy(), cmap=plt.get_cmap('gray'))
+        plt.imshow(image.permute(1, 2, 0).detach().to("cpu").numpy())
 
 #         image = image_paths[random.randint(0, 1000)]
 #         original_image = mpimg.imread(image)
