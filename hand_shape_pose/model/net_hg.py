@@ -223,7 +223,7 @@ class Conv(nn.Module):
         return x
 
 
-class Backbone(nn.Module):
+class Net_HM_HG(nn.Module):
     def __init__(self, nFeat=256, inplanes=3, resBlock=Residual):
         super(Backbone, self).__init__()
         self.nFeat = nFeat
