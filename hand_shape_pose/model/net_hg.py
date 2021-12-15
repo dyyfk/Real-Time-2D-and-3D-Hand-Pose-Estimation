@@ -254,7 +254,7 @@ class Backbone(nn.Module):
 class Net_HM_HG(nn.Module):
     """Instantiate an n order Hourglass Network block using recursive trick."""
 #     def __init__(self, num_joints, num_stages=2, num_modules=2, num_feats=256): # original Net_HM_HG
-    def __init__(self, depth, nFeat, increase=128, bn=False, resBlock=Conv, num_joints=21, num_stages=2, num_modules=2, num_feats=256):
+    def __init__(self, depth=4, nFeat=256, increase=128, bn=False, resBlock=Conv, num_joints=21, num_stages=2, num_modules=2, num_feats=256):
         super(Net_HM_HG, self).__init__()
         self.depth = depth  # oder number
         self.nFeat = nFeat  # input and output channels
