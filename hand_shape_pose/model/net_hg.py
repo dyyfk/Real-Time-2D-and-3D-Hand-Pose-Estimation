@@ -227,7 +227,7 @@ class Net_HM_HG(nn.Module):
     
     #     def __init__(self, num_joints, num_stages=2, num_modules=2, num_feats=256): original Net_HM_HG signature
 
-    def __init__(self, nFeat=256, inplanes=3, resBlock=Residual, num_joints, num_stages=2, num_modules=2, num_feats=256):
+    def __init__(self, nFeat=256, inplanes=3, resBlock=Residual, num_joints=21, num_stages=2, num_modules=2, num_feats=256):
         super(Net_HM_HG, self).__init__()
         self.nFeat = nFeat
         self.resBlock = resBlock
