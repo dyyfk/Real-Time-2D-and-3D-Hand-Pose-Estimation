@@ -10,7 +10,7 @@ from __future__ import unicode_literals
 
 import torch.nn as nn
 
-# from hand_shape_pose.util.net_util import Residual
+from hand_shape_pose.util.net_util import Residual
 
 #### MODIFICATION ####
     
@@ -28,38 +28,38 @@ import torch
 import torch.nn.functional as F
 
 
-class Residual(nn.Module):
-    """Residual Block modified by us"""
+# class Residual(nn.Module):
+#     """Residual Block modified by us"""
 
-    def __init__(self, ins, outs):
-        super(Residual, self).__init__()
-        self.convBlock = nn.Sequential(
-            nn.Conv2d(ins, outs//2, 1, bias=False),
-            nn.BatchNorm2d(outs//2),
-            nn.LeakyReLU(negative_slope=0.01, inplace=True),
-            nn.Conv2d(outs // 2, outs // 2, 3, 1, 1, bias=False),
-            nn.BatchNorm2d(outs // 2),
-            nn.LeakyReLU(negative_slope=0.01, inplace=True),
-            nn.Conv2d(outs // 2, outs, 1, bias=False),
-            nn.BatchNorm2d(outs),
-        )
-        if ins != outs:
-            self.skipConv = nn.Sequential(
-                nn.Conv2d(ins, outs, 1, bias=False),
-                nn.BatchNorm2d(outs)
-            )
-        self.relu = nn.LeakyReLU(negative_slope=0.01, inplace=True)
-        self.ins = ins
-        self.outs = outs
+#     def __init__(self, ins, outs):
+#         super(Residual, self).__init__()
+#         self.convBlock = nn.Sequential(
+#             nn.Conv2d(ins, outs//2, 1, bias=False),
+#             nn.BatchNorm2d(outs//2),
+#             nn.LeakyReLU(negative_slope=0.01, inplace=True),
+#             nn.Conv2d(outs // 2, outs // 2, 3, 1, 1, bias=False),
+#             nn.BatchNorm2d(outs // 2),
+#             nn.LeakyReLU(negative_slope=0.01, inplace=True),
+#             nn.Conv2d(outs // 2, outs, 1, bias=False),
+#             nn.BatchNorm2d(outs),
+#         )
+#         if ins != outs:
+#             self.skipConv = nn.Sequential(
+#                 nn.Conv2d(ins, outs, 1, bias=False),
+#                 nn.BatchNorm2d(outs)
+#             )
+#         self.relu = nn.LeakyReLU(negative_slope=0.01, inplace=True)
+#         self.ins = ins
+#         self.outs = outs
 
-    def forward(self, x):
-        residual = x
-        x = self.convBlock(x)
-        if self.ins != self.outs:
-            residual = self.skipConv(residual)
-        x += residual
-        x = self.relu(x)
-        return x
+#     def forward(self, x):
+#         residual = x
+#         x = self.convBlock(x)
+#         if self.ins != self.outs:
+#             residual = self.skipConv(residual)
+#         x += residual
+#         x = self.relu(x)
+#         return x
 #### END OF MODIFICATION ####
 
 
