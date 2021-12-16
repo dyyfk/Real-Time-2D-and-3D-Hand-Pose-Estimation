@@ -27,6 +27,38 @@ import cv2
 import torch
 import torch.nn.functional as F
 
+   
+class Conv(nn.Module):
+    # conv block used in hourglass
+    def __init__(self, inp_dim, out_dim, kernel_size=3, stride=1, bn=False, relu=True, dropout=False):
+        super(Conv, self).__init__()
+        self.inp_dim = inp_dim
+        self.relu = None
+        self.bn = None
+        self.dropout = dropout
+        if relu:
+            self.relu = nn.LeakyReLU(negative_slope=0.01, inplace=True)  # 换成 Leak Relu减缓神经元死亡现象
+        if bn:
+            self.conv = nn.Conv2d(inp_dim, out_dim, kernel_size, stride, padding=(kernel_size - 1) // 2, bias=False)
+            # Different form TF, momentum default in Pytorch is 0.1, which means the decay rate of old running value
+            self.bn = nn.BatchNorm2d(out_dim)
+        else:
+            self.conv = nn.Conv2d(inp_dim, out_dim, kernel_size, stride, padding=(kernel_size - 1) // 2, bias=True)
+
+    def forward(self, x):
+        # examine the input channel equals the conve kernel channel
+        assert x.size()[1] == self.inp_dim, "input channel {} dese not fit kernel channel {}".format(x.size()[1],
+                                                                                                     self.inp_dim)
+        if self.dropout:  # comment these two lines if we do not want to use Dropout layers
+            # p: probability of an element to be zeroed
+            x = F.dropout(x, p=0.2, training=self.training, inplace=False)  # 直接注释掉这一行，如果我们不想使用Dropout
+
+        x = self.conv(x)
+        if self.bn is not None:
+            x = self.bn(x)
+        if self.relu is not None:
+            x = self.relu(x)
+        return x
 
 class Residual(nn.Module):
     """Residual Block modified by us"""
@@ -60,6 +92,7 @@ class Residual(nn.Module):
         x += residual
         x = self.relu(x)
         return x
+    
 #### END OF MODIFICATION ####
 
 
@@ -193,37 +226,6 @@ class Net_HM_HG(nn.Module):
        
 
 
-class Conv(nn.Module):
-    # conv block used in hourglass
-    def __init__(self, inp_dim, out_dim, kernel_size=3, stride=1, bn=False, relu=True, dropout=False):
-        super(Conv, self).__init__()
-        self.inp_dim = inp_dim
-        self.relu = None
-        self.bn = None
-        self.dropout = dropout
-        if relu:
-            self.relu = nn.LeakyReLU(negative_slope=0.01, inplace=True)  # 换成 Leak Relu减缓神经元死亡现象
-        if bn:
-            self.conv = nn.Conv2d(inp_dim, out_dim, kernel_size, stride, padding=(kernel_size - 1) // 2, bias=False)
-            # Different form TF, momentum default in Pytorch is 0.1, which means the decay rate of old running value
-            self.bn = nn.BatchNorm2d(out_dim)
-        else:
-            self.conv = nn.Conv2d(inp_dim, out_dim, kernel_size, stride, padding=(kernel_size - 1) // 2, bias=True)
-
-    def forward(self, x):
-        # examine the input channel equals the conve kernel channel
-        assert x.size()[1] == self.inp_dim, "input channel {} dese not fit kernel channel {}".format(x.size()[1],
-                                                                                                     self.inp_dim)
-        if self.dropout:  # comment these two lines if we do not want to use Dropout layers
-            # p: probability of an element to be zeroed
-            x = F.dropout(x, p=0.2, training=self.training, inplace=False)  # 直接注释掉这一行，如果我们不想使用Dropout
-
-        x = self.conv(x)
-        if self.bn is not None:
-            x = self.bn(x)
-        if self.relu is not None:
-            x = self.relu(x)
-        return x
 
 
 # class Backbone(nn.Module):    
