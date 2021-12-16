@@ -41,7 +41,7 @@ class Residual(nn.Module):
             nn.BatchNorm2d(outs // 2),
             nn.LeakyReLU(negative_slope=0.01, inplace=True),
             nn.Conv2d(outs // 2, outs, 1, bias=False),
-#             nn.BatchNorm2d(outs),
+            nn.BatchNorm2d(outs),
         )
         if ins != outs:
             self.skipConv = nn.Sequential(
