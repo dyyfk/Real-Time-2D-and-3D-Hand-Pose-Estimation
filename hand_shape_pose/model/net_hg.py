@@ -253,7 +253,9 @@ class Conv(nn.Module):
 
 class Hourglass(nn.Module):
     """Instantiate an n order Hourglass Network block using recursive trick."""
-    def __init__(self, depth, nFeat=256, increase=128, bn=False, resBlock=Conv):
+    #     def __init__(self, n, nModules, nFeats):
+
+    def __init__(self, depth, nModules=2, nFeat=256, increase=128, bn=False, resBlock=Conv):
         super(Hourglass, self).__init__()
         self.depth = depth  # oder number
         self.nFeat = nFeat  # input and output channels
