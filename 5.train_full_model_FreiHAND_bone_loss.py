@@ -48,7 +48,7 @@ def main():
     model = MLPPoseNetwork(cfg)
     device = cfg.MODEL.DEVICE
     model.to(device)
-#     model.load_model(cfg, load_mlp=True)
+    model.load_model(cfg, load_mlp=True)
     model = model.train()
 
     # Load data
